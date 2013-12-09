@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+	<body>
+		<script src="http://cdn.binaryjs.com/0/binary.js"></script>
+		<script>
+			var c = new BinaryClient('ws://localhost:10000');
+			c.on('stream',function(s,m){
+				//
+				var parts = [];
+				s.on('data',function(d){
+					parts.push(d);
+				});
+				s.on('end',function(){
+					var img = document.createElement('img');
+					img.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+					document.body.appendChild(img);
+				});
+			});
+		</script>
+	</body>
+</body>
